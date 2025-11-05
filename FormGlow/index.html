@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReportIT - Report Security Concerns</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nigeria-flag"></div>
+    
+    <!-- Theme Toggle Button -->
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+        <span class="theme-icon">🌙</span>
+    </button>
+
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="particles-container" id="particles"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">ReportIT</h1>
+                <p class="tagline">See Something? Say Something.</p>
+                <p class="description">Help keep your community safe — report what matters.</p>
+            </div>
+        </header>
+
+        <!-- Main Form Section -->
+        <main class="main-content">
+            <div class="form-card">
+                <form id="reportForm" class="report-form">
+                    <!-- Name Input -->
+                    <div class="form-group">
+                        <label for="name" class="form-label">
+                            <span class="label-text">Full Name</span>
+                            <span class="required">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            name="entry.200562054"
+                            class="form-input"
+                            placeholder="Enter your full name"
+                            required
+                        >
+                    </div>
+
+                    <!-- Email Input -->
+                    <div class="form-group">
+                        <label for="email" class="form-label">
+                            <span class="label-text">Email Address</span>
+                            <span class="required">*</span>
+                        </label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="entry.1045781291"
+                            class="form-input"
+                            placeholder="your.email@example.com"
+                            required
+                        >
+                    </div>
+
+                    <!-- Address Input -->
+                    <div class="form-group">
+                        <label for="addressInput" class="form-label">
+                            <span class="label-text">Address</span>
+                            <span class="required">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="addressInput" 
+                            name="entry.1865946570"
+                            class="form-input"
+                            placeholder="Enter your address or use location capture"
+                            required
+                        >
+                    </div>
+
+                    <!-- Phone Number Input -->
+                    <div class="form-group">
+                        <label for="phone" class="form-label">
+                            <span class="label-text">Phone Number</span>
+                            <span class="required">*</span>
+                        </label>
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            name="entry.1166974658"
+                            class="form-input"
+                            placeholder="+1 (555) 000-0000"
+                            required
+                        >
+                    </div>
+
+                    <!-- Category Selector with multi-selection chips -->
+                    <div class="form-group">
+                        <label for="categoryInput" class="form-label">
+                            <span class="label-text">Report Category</span>
+                            <span class="required">*</span>
+                        </label>
+                        <div class="category-input-wrapper">
+                            <input 
+                                type="text" 
+                                id="categoryInput" 
+                                class="form-input category-input"
+                                placeholder="Search or type a category..."
+                                autocomplete="off"
+                            >
+                            <div id="categorySuggestions" class="category-suggestions"></div>
+                        </div>
+                        <div id="selectedCategories" class="selected-categories"></div>
+                        <input type="hidden" id="categoryHidden" name="categoryHidden">
+                    </div>
+
+                    <!-- Custom Category Input -->
+                    <div id="customCategoryGroup" class="form-group" style="display: none;">
+                        <label for="customCategory" class="form-label">
+                            <span class="label-text">Specify Other Category</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="customCategory" 
+                            class="form-input"
+                            placeholder="Please describe the category..."
+                        >
+                    </div>
+
+                    <!-- Description Input -->
+                    <div class="form-group">
+                        <label for="description" class="form-label">
+                            <span class="label-text">What did you observe?</span>
+                            <span class="required">*</span>
+                        </label>
+                        <textarea 
+                            id="description" 
+                            name="description" 
+                            class="form-input textarea"
+                            placeholder="Describe the security concern in detail..."
+                            rows="4"
+                            required
+                        ></textarea>
+                        <span class="char-count"><span id="charCount">0</span>/500</span>
+                    </div>
+
+                    <!-- Location Section -->
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span class="label-text">📍 Location</span>
+                        </label>
+                        <div class="location-controls">
+                            <button type="button" id="captureLocation" class="btn-secondary">
+                                <span class="btn-icon">📍</span>
+                                Capture Location
+                            </button>
+                            <span id="locationStatus" class="status-text"></span>
+                        </div>
+                        <input type="hidden" id="latitude" name="latitude">
+                        <input type="hidden" id="longitude" name="longitude">
+                        <div id="locationDisplay" class="location-display"></div>
+                    </div>
+
+                    <!-- Image Upload -->
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span class="label-text">📸 Upload Image</span>
+                        </label>
+                        <div class="upload-area" id="imageUploadArea">
+                            <input type="file" id="imageInput" accept="image/*" class="file-input">
+                            <div class="upload-placeholder">
+                                <span class="upload-icon">📸</span>
+                                <p>Click to upload or drag and drop</p>
+                                <span class="upload-hint">PNG, JPG, GIF up to 10MB</span>
+                            </div>
+                        </div>
+                        <div id="imagePreview" class="preview-container"></div>
+                        <input type="hidden" id="imageUrl" name="imageUrl">
+                    </div>
+
+                    <!-- Voice Note Recording -->
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span class="label-text">🎤 Voice Note</span>
+                        </label>
+                        <div class="voice-controls">
+                            <button type="button" id="recordBtn" class="btn-secondary">
+                                <span class="btn-icon">🎤</span>
+                                Start Recording
+                            </button>
+                            <span id="recordingTime" class="recording-time"></span>
+                            <span id="voiceStatus" class="status-text"></span>
+                        </div>
+                        <div id="voicePreview" class="preview-container"></div>
+                        <input type="hidden" id="voiceUrl" name="voiceUrl">
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-primary" id="submitBtn">
+                        <span class="btn-text">Submit Report</span>
+                        <span class="btn-glow"></span>
+                    </button>
+                </form>
+            </div>
+        </main>
+
+        <!-- Toast Notifications -->
+        <div id="toastContainer" class="toast-container"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
